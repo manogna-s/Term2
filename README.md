@@ -1,8 +1,6 @@
-# Term2
-Course resources of 2nd Term (Spring 2021)
-***
-## Courses
+# Pattern Recognition and Neural Networks (PRNN)
 
-* Advanced Image Processing (AIP)
-* Pattern Recognition and Neural Networks (PRNN)
-* Convex Optimization and Applications (CVO)
+***
+## Assignments
+
+* Assignment1 - Bayes Classifier, ML estimation
