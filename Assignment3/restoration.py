@@ -1,19 +1,12 @@
 import numpy as np
-from skimage.filters import gaussian
-import skimage
-from skimage import img_as_float
-
-from helper import get_gaussian_kernel, convolve, get_padded_image
+from utils import get_gaussian_kernel, convolve
 
 
-def highboost_filter(image: np.ndarray, k: float) -> np.ndarray:
+def unsharp_mask(image: np.ndarray, k: float) -> np.ndarray:
     hpf = np.array([[-1, -1, -1], [-1, 8, -1], [-1, -1, -1]])
-    hp_image = convolve(image, hpf)
-    sharpened_im = image + k * hp_image
-    # print(k, np.min(sharpened_im), np.max(sharpened_im))
+    hp_image = convolve(image, hpf)                         # Apply the high pass filter on the image
+    sharpened_im = image + k * hp_image                     # Add the high high pass component scaled with the given gain
     sharpened_im = np.clip(sharpened_im, 0, 255)
-    # print(np.min(sharpened_im), np.max(sharpened_im))
-
     return sharpened_im
 
 
@@ -109,7 +102,7 @@ def adaptive_shrink(image: np.ndarray, k=32, s=32, k_lpf=5, sigma_lpf=1, noise_v
 
 
 
-def adaptive_shrink_overlap(image: np.ndarray, k=32, s=16, k_lpf = 5, sigma_lpf=1, noise_var=100, sure=True):
+def adaptive_shrink_overlap(image: np.ndarray, k=32, s=16, k_lpf = 5, sigma_lpf=1, noise_var=100, sure=True):   #adaptive shrink with overlap
     lpf = get_gaussian_kernel(k=k_lpf, sigma=sigma_lpf)
 
     # estimate noise variance in high pass signal
